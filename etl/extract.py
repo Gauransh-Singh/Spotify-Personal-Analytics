@@ -35,7 +35,7 @@ sp = spotipy.Spotify(
 
 # MYSQL CONNECTION
 engine = create_engine(
-    "mysql+pymysql://root:Messi3010@localhost/spotify_dashboard"
+    os.getenv("DATABASE_URL")
 )
 
 # GET LAST EXTRACTED TIMESTAMP

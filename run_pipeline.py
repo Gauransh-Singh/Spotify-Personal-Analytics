@@ -8,18 +8,24 @@ def run_script(script_name):
         result = subprocess.run([sys.executable, script_name], check=True)
         return result.returncode == 0
     except subprocess.CalledProcessError as e:
-        print(f"\n❌ ERROR: {script_name} failed with exit code {e.returncode}")
+        print(f"\nERROR: {script_name} failed with exit code {e.returncode}")
         return False
     except Exception as e:
-        print(f"\n❌ ERROR: Failed to run {script_name}: {str(e)}")
+        print(f"\nERROR: Failed to run {script_name}: {str(e)}")
         return False
 
 if __name__ == "__main__":
-    print("🌟 STARTING FULL DATA PIPELINE 🌟")
+    print("\n" + "="*50)
+    print("STARTING FULL DATA PIPELINE")
+    print("="*50 + "\n")
     
-    # 1. Fetch from Spotify and load into database
-    if run_script("etl/extract.py"):
-        # 2. Fetch missing audio features for any new tracks
-        run_script("etl/load_audio_features.py")
-        
-    print("\n✅ FULL PIPELINE COMPLETE!")
+    if run_script("etl/extract.py") and run_script("etl/load_audio_features.py"):
+        print("\n" + "="*50)
+        print("PIPELINE COMPLETED SUCCESSFULLY")
+        print("="*50 + "\n")
+        print("\nFULL PIPELINE COMPLETE!")
+    else:
+        print("\n" + "="*50)
+        print("PIPELINE FAILED")
+        print("="*50 + "\n")
+        sys.exit(1)
