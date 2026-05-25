@@ -25,8 +25,10 @@ jobs:
           pip install -r requirements.txt
 
       - name: Create Spotify Cache File
+        env:
+          SPOTIFY_CACHE: ${{ secrets.SPOTIFY_CACHE }}
         run: |
-          echo "${{ secrets.SPOTIFY_CACHE }}" > .cache
+          python -c 'import os; open(".cache", "w").write(os.environ["SPOTIFY_CACHE"])'
 
       - name: Run ETL Pipeline
         env:
