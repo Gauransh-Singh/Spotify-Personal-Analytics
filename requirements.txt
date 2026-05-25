@@ -1,0 +1,6 @@
+pandas
+requests
+spotipy
+sqlalchemy
+pymysql
+python-dotenv

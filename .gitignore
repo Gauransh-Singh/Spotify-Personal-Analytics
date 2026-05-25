@@ -1,0 +1,25 @@
+# Environments
+.env
+.env.*
+venv/
+env/
+__pycache__/
+
+# Authentication
+.cache
+
+# Dependencies
+node_modules/
+.next/
+
+# Large Backups
+*.sql
+*.sqlite3
+
+# Logs
+logs/
+*.log
+
+# OS Files
+.DS_Store
+Thumbs.db
