@@ -2,8 +2,8 @@ name: Spotify ETL Pipeline
 
 on:
   schedule:
-    # Runs every 2 hours to ensure no Spotify data is missed (Spotify only saves last 50 songs)
-    - cron: '0 */2 * * *'
+    # Runs every 2 hours, offset by 17 minutes to avoid GitHub's top-of-hour traffic jams
+    - cron: '17 */2 * * *'
   workflow_dispatch: # Allows manual trigger from GitHub UI
 
 jobs:
