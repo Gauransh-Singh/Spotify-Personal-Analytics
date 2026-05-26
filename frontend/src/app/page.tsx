@@ -178,7 +178,7 @@ export default function Home() {
               <LineChart data={data.activity.dailyTrend}>
                 <XAxis dataKey="date" stroke="#a0a0ab" fontSize={12} tickFormatter={(val) => new Date(val).toLocaleDateString(undefined, {month: 'short', day: 'numeric'})} axisLine={false} tickLine={false} />
                 <YAxis stroke="#a0a0ab" fontSize={12} axisLine={false} tickLine={false} />
-                <RechartsTooltip contentStyle={{ backgroundColor: '#1a1a1f', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }} cursor={{stroke: 'rgba(255,255,255,0.1)'}} />
+                <RechartsTooltip labelFormatter={(val) => new Date(val).toLocaleDateString(undefined, {month: 'short', day: 'numeric'})} contentStyle={{ backgroundColor: '#1a1a1f', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }} cursor={{stroke: 'rgba(255,255,255,0.1)'}} />
                 <Line type="monotone" dataKey="count" stroke="#1db954" strokeWidth={4} dot={{r: 4, fill: '#1db954', strokeWidth: 0}} activeDot={{r: 8}} />
               </LineChart>
             </ResponsiveContainer>
