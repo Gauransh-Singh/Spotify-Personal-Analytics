@@ -105,6 +105,7 @@ for item in results['items']:
     })
 
     recently_played_data.append({
+        "song_name": track['name'],
         "track_id": track_id,
         "played_at": item['played_at']
     })
