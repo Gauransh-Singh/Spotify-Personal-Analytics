@@ -82,10 +82,15 @@ export default function Home() {
       <PageTransition>
         <div className="app-container">
         <section style={{ marginTop: '2rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'var(--accent)', marginBottom: '2rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'var(--accent)', marginBottom: '0.5rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
             <Activity size={20} />
             <span>Your Personal Frequency</span>
           </div>
+          {data?.kpis?.lastUpdated && (
+            <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '2rem', marginLeft: '2.2rem' }}>
+              Last Synced {new Date(data.kpis.lastUpdated).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}
+            </div>
+          )}
           
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '4rem', flexWrap: 'wrap' }}>
             <div style={{ flex: 1, minWidth: '300px', margin: 0 }}>

@@ -106,8 +106,8 @@ export default function SmartInsightsPage() {
 
           <div className="sleek-panel" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <User size={28} color="#5b8cff" />
-            <h3 style={{ fontSize: '1.2rem', color: '#fff', margin: 0 }}>Top artist is {data.kpis.mostPlayedArtist}</h3>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', margin: 0 }}>They absolutely dominate your personal charts.</p>
+            <h3 style={{ fontSize: '1.2rem', color: '#fff', margin: 0 }}>Top artist is {data.profile.topArtists.find((a: any) => a.time_range === 'long_term')?.artist_name || data.kpis.mostPlayedArtist}</h3>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', margin: 0 }}>They absolutely dominate your all-time charts.</p>
           </div>
 
           <div className="sleek-panel" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
