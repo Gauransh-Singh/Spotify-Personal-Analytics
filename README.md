@@ -147,4 +147,4 @@ Run `pip install -r requirements.txt` and execute `python run_pipeline.py`. Log 
 *   💼 **Portfolio:** [gauransh-singh.vercel.app](https://gauransh-singh.vercel.app)
 *   🔗 **LinkedIn:** [linkedin.com/in/gauransh-singh-211586294](https://www.linkedin.com/in/gauransh-singh-211586294)
 
-*Built as a passionate exploration of data engineering, cloud automation, and full-stack web development. 🚀*
+*Built as a passionate exploration of analytics, data engineering, cloud automation, and full-stack web development. 🚀*
