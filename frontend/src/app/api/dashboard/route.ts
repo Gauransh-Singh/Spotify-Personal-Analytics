@@ -9,7 +9,7 @@ export async function GET() {
 
     const [
       // 1. KPIs
-      [[{ total_tracks }]], [[{ total_hours }]], [[{ total_artists }]], [[{ total_playlists }]], [[{ avg_bpm }]], [[mostPlayedArtistResult]], [[{ last_updated }]],
+      [[{ total_tracks }]], [[{ total_hours }]], [[{ total_artists }]], [[{ total_playlists }]], [[{ avg_bpm }]], [[mostPlayedArtistResult]],
       // 2. Activity
       [dailyTrend], [monthlyTrend], [hourlyTrend], [recentlyPlayed],
       // 3. Profile
@@ -27,7 +27,6 @@ export async function GET() {
       connection.query<any>('SELECT COUNT(*) as total_playlists FROM playlists'),
       connection.query<any>('SELECT AVG(bpm) as avg_bpm FROM audio_features'),
       connection.query<any>('SELECT t.artist_name, COUNT(*) as count FROM recently_played rp JOIN tracks t ON rp.track_id = t.track_id GROUP BY t.artist_name ORDER BY count DESC LIMIT 1'),
-      connection.query<any>('SELECT MAX(played_at) as last_updated FROM recently_played'),
       
       connection.query<any>('SELECT DATE(played_at) as date, COUNT(*) as count FROM recently_played WHERE played_at >= DATE_SUB(NOW(), INTERVAL 30 DAY) GROUP BY DATE(played_at) ORDER BY date ASC'),
       connection.query<any>("SELECT DATE_FORMAT(played_at, '%Y-%m') as month, COUNT(*) as count FROM recently_played WHERE played_at >= DATE_SUB(NOW(), INTERVAL 12 MONTH) GROUP BY month ORDER BY month ASC"),
@@ -70,8 +69,7 @@ export async function GET() {
         totalArtists: total_artists || 0,
         totalPlaylists: total_playlists || 0,
         avgBpm: parseFloat(avg_bpm) || 0,
-        mostPlayedArtist: mostPlayedArtistResult?.artist_name || 'N/A',
-        lastUpdated: last_updated || null
+        mostPlayedArtist: mostPlayedArtistResult?.artist_name || 'N/A'
       },
       activity: {
         dailyTrend,

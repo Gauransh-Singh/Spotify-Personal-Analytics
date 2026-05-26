@@ -82,17 +82,9 @@ export default function Home() {
       <PageTransition>
         <div className="app-container">
         <section style={{ marginTop: '2rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'var(--accent)', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-              <Activity size={20} />
-              <span>Your Personal Frequency</span>
-            </div>
-            {data.kpis.lastUpdated && (
-              <div style={{ fontSize: '0.85rem', color: 'var(--text-tertiary)', display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(255,255,255,0.03)', padding: '6px 12px', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                <div style={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: 'var(--accent)', boxShadow: '0 0 10px var(--accent)', animation: 'pulse 2s infinite' }}></div>
-                Last Played: {new Date(data.kpis.lastUpdated).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
-              </div>
-            )}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'var(--accent)', marginBottom: '2rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+            <Activity size={20} />
+            <span>Your Personal Frequency</span>
           </div>
           
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '4rem', flexWrap: 'wrap' }}>
