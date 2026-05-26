@@ -1,6 +1,6 @@
 # 🎵 Spotify Personal Analytics Dashboard 🎧
 
-![Dashboard Preview](https://img.shields.io/badge/Status-Live-success?style=for-the-badge) ![Tech Stack](https://img.shields.io/badge/Next.js-Black?style=for-the-badge&logo=next.js) ![Tech Stack](https://img.shields.io/badge/Python-Blue?style=for-the-badge&logo=python) ![Tech Stack](https://img.shields.io/badge/MySQL-Orange?style=for-the-badge&logo=mysql)
+![Dashboard Preview](https://img.shields.io/badge/Status-Live-success?style=for-the-badge)
 
 A full-stack, fully automated personal music analytics platform designed to track, store, and analyze my Spotify listening history. By integrating the Spotify Web API with advanced audio intelligence (Melodata API), this project uncovers the hidden patterns behind my music taste — from real-time listening habits to deep musical theory analysis. 🌟
 
