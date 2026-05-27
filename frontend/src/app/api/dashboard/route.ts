@@ -15,7 +15,7 @@ export async function GET() {
       // 3. Profile
       [topArtists], [topTracks], [playlists],
       // 4. Intelligence
-      [[audioAverages]], [comparativeAverages], [bpmHistogram], [energyDistribution], [danceabilityDistribution], [speechinessDistribution], [topDanceable], [topEnergetic],
+      [[audioAverages]], [[audioAveragesAllTime]], [comparativeAverages], [bpmHistogram], [energyDistribution], [danceabilityDistribution], [speechinessDistribution], [topDanceable], [topEnergetic],
       // 5. Mood
       [topMoodSongs], [topWorkoutSongs], [topFocusSongs], [[globalScores]],
       // 6. Scatter
@@ -39,6 +39,7 @@ export async function GET() {
       connection.query<any>('SELECT playlist_id, playlist_name, image_url, total_tracks FROM playlists'),
       
       connection.query<any>('SELECT AVG(af.bpm) as bpm, AVG(af.energy) as energy, AVG(af.danceability) as danceability, AVG(af.loudness) as loudness FROM (SELECT DISTINCT track_id FROM recently_played) rp JOIN audio_features af ON rp.track_id = af.track_id'),
+      connection.query<any>('SELECT AVG(bpm) as bpm, AVG(energy) as energy, AVG(danceability) as danceability, AVG(loudness) as loudness FROM audio_features'),
       connection.query<any>(`SELECT tt.time_range, AVG(af.bpm) as bpm, AVG(af.energy) as energy, AVG(af.danceability) as danceability, AVG(af.loudness) as loudness FROM top_tracks tt JOIN audio_features af ON tt.track_id = af.track_id WHERE tt.time_range IN ('short_term', 'long_term') GROUP BY tt.time_range`),
       connection.query<any>(`SELECT CONCAT(FLOOR(bpm / 10) * 10, 's') as speed, COUNT(*) as count, FLOOR(bpm / 10) * 10 as sort_val FROM audio_features GROUP BY speed, sort_val ORDER BY sort_val`),
       connection.query<any>(`SELECT CASE WHEN af.energy < 0.4 THEN 'Low' WHEN af.energy >= 0.4 AND af.energy <= 0.7 THEN 'Medium' ELSE 'High' END as energy_level, COUNT(*) as count FROM (SELECT DISTINCT track_id FROM recently_played) rp JOIN audio_features af ON rp.track_id = af.track_id GROUP BY energy_level`),
@@ -90,6 +91,12 @@ export async function GET() {
           energy: parseFloat(audioAverages?.energy) || 0,
           danceability: parseFloat(audioAverages?.danceability) || 0,
           loudness: parseFloat(audioAverages?.loudness) || 0,
+        },
+        averagesAllTime: {
+          bpm: parseFloat(audioAveragesAllTime?.bpm) || 0,
+          energy: parseFloat(audioAveragesAllTime?.energy) || 0,
+          danceability: parseFloat(audioAveragesAllTime?.danceability) || 0,
+          loudness: parseFloat(audioAveragesAllTime?.loudness) || 0,
         },
         comparativeAverages,
         bpmHistogram,

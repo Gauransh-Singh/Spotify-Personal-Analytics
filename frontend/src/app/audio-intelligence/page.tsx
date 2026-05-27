@@ -39,15 +39,15 @@ export default function AudioIntelligencePage() {
         <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem', marginTop: '2rem', marginBottom: '4rem' }}>
           <div className="sleek-panel" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
             <div style={{ color: 'var(--text-secondary)', textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>Average BPM</div>
-            <div style={{ fontSize: '3rem', fontWeight: 700, color: '#1db954' }}>{Math.round(data.intelligence.averages.bpm)}</div>
+            <div style={{ fontSize: '3rem', fontWeight: 700, color: '#1db954' }}>{Math.round(data.intelligence.averagesAllTime.bpm)}</div>
           </div>
           <div className="sleek-panel" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
             <div style={{ color: 'var(--text-secondary)', textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>Avg Energy</div>
-            <div style={{ fontSize: '3rem', fontWeight: 700, color: '#ff4b4b' }}>{Math.round(data.intelligence.averages.energy * 100)}%</div>
+            <div style={{ fontSize: '3rem', fontWeight: 700, color: '#ff4b4b' }}>{Math.round(data.intelligence.averagesAllTime.energy * 100)}%</div>
           </div>
           <div className="sleek-panel" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
             <div style={{ color: 'var(--text-secondary)', textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>Avg Danceability</div>
-            <div style={{ fontSize: '3rem', fontWeight: 700, color: '#5b8cff' }}>{Math.round(data.intelligence.averages.danceability * 100)}%</div>
+            <div style={{ fontSize: '3rem', fontWeight: 700, color: '#5b8cff' }}>{Math.round(data.intelligence.averagesAllTime.danceability * 100)}%</div>
           </div>
           <div className="sleek-panel" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
             <div style={{ color: 'var(--text-secondary)', textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>Avg Loudness</div>
