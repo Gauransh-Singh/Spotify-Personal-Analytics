@@ -106,8 +106,8 @@ export default function SmartInsightsPage() {
 
           <div className="sleek-panel" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <User size={28} color="#5b8cff" />
-            <h3 style={{ fontSize: '1.2rem', color: '#fff', margin: 0 }}>Top artist is {data.profile.topArtists.find((a: any) => a.time_range === 'long_term')?.artist_name || data.kpis.mostPlayedArtist}</h3>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', margin: 0 }}>They absolutely dominate your all-time charts.</p>
+            <h3 style={{ fontSize: '1.2rem', color: '#fff', margin: 0 }}>Top artist is {data.kpis.mostPlayedArtist}</h3>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', margin: 0 }}>They absolutely dominate your recent charts.</p>
           </div>
 
           <div className="sleek-panel" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -118,7 +118,9 @@ export default function SmartInsightsPage() {
         </section>
 
         {/* Lists - Bottom Grid (Strict 2x2) */}
-        <section style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', marginBottom: '4rem' }}>
+        <div>
+          <h2 style={{ fontSize: '2rem', marginBottom: '2rem', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '1rem' }}>All Time Top Song Features</h2>
+          <section style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', marginBottom: '4rem' }}>
           <div className="sleek-panel">
             <h3 style={{ marginBottom: '1.5rem', color: '#ff4b4b', display: 'flex', alignItems: 'center', gap: '0.75rem' }}><Zap size={22} /> Best Workout Songs</h3>
             {renderTrackList(data.mood.topWorkoutSongs)}
@@ -138,7 +140,8 @@ export default function SmartInsightsPage() {
             <h3 style={{ marginBottom: '1.5rem', color: '#5b8cff', display: 'flex', alignItems: 'center', gap: '0.75rem' }}><Activity size={22} /> Most Danceable Songs</h3>
             {renderTrackList(data.intelligence.topDanceable)}
           </div>
-        </section>
+          </section>
+        </div>
 
       </div>
     </PageTransition>

@@ -38,10 +38,10 @@ export async function GET() {
       connection.query<any>('SELECT t.track_id, t.song_name, t.artist_name, t.album_image, t.duration_ms, tt.rank_position, tt.time_range, af.energy, af.bpm, af.danceability FROM top_tracks tt JOIN tracks t ON tt.track_id = t.track_id LEFT JOIN audio_features af ON t.track_id = af.track_id ORDER BY tt.time_range, tt.rank_position ASC'),
       connection.query<any>('SELECT playlist_id, playlist_name, image_url, total_tracks FROM playlists'),
       
-      connection.query<any>('SELECT AVG(bpm) as bpm, AVG(energy) as energy, AVG(danceability) as danceability, AVG(loudness) as loudness FROM audio_features'),
+      connection.query<any>('SELECT AVG(af.bpm) as bpm, AVG(af.energy) as energy, AVG(af.danceability) as danceability, AVG(af.loudness) as loudness FROM (SELECT DISTINCT track_id FROM recently_played) rp JOIN audio_features af ON rp.track_id = af.track_id'),
       connection.query<any>(`SELECT tt.time_range, AVG(af.bpm) as bpm, AVG(af.energy) as energy, AVG(af.danceability) as danceability, AVG(af.loudness) as loudness FROM top_tracks tt JOIN audio_features af ON tt.track_id = af.track_id WHERE tt.time_range IN ('short_term', 'long_term') GROUP BY tt.time_range`),
       connection.query<any>(`SELECT CONCAT(FLOOR(bpm / 10) * 10, 's') as speed, COUNT(*) as count, FLOOR(bpm / 10) * 10 as sort_val FROM audio_features GROUP BY speed, sort_val ORDER BY sort_val`),
-      connection.query<any>(`SELECT CASE WHEN energy < 0.4 THEN 'Low' WHEN energy >= 0.4 AND energy <= 0.7 THEN 'Medium' ELSE 'High' END as energy_level, COUNT(*) as count FROM audio_features GROUP BY energy_level`),
+      connection.query<any>(`SELECT CASE WHEN af.energy < 0.4 THEN 'Low' WHEN af.energy >= 0.4 AND af.energy <= 0.7 THEN 'Medium' ELSE 'High' END as energy_level, COUNT(*) as count FROM (SELECT DISTINCT track_id FROM recently_played) rp JOIN audio_features af ON rp.track_id = af.track_id GROUP BY energy_level`),
       connection.query<any>(`SELECT CASE WHEN danceability < 0.4 THEN 'Low' WHEN danceability >= 0.4 AND danceability <= 0.7 THEN 'Medium' ELSE 'High' END as danceability_level, COUNT(*) as count FROM audio_features GROUP BY danceability_level`),
       connection.query<any>(`SELECT CASE WHEN speechiness < 0.33 THEN 'Music / Non-Speech' WHEN speechiness >= 0.33 AND speechiness <= 0.66 THEN 'Mixed' ELSE 'Spoken Word' END as speechiness_level, COUNT(*) as count FROM audio_features GROUP BY speechiness_level`),
       connection.query<any>('SELECT t.song_name, t.artist_name, t.album_image, t.duration_ms, af.danceability FROM audio_features af JOIN tracks t ON af.track_id = t.track_id ORDER BY af.danceability DESC LIMIT 10'),
@@ -50,7 +50,7 @@ export async function GET() {
       connection.query<any>('SELECT t.song_name, t.artist_name, t.album_image, t.duration_ms, (af.energy + af.danceability) / 2 as mood_score FROM audio_features af JOIN tracks t ON af.track_id = t.track_id ORDER BY mood_score DESC LIMIT 10'),
       connection.query<any>('SELECT t.song_name, t.artist_name, t.album_image, t.duration_ms, (af.energy * 0.7) + ((af.bpm / 200) * 0.3) as workout_score FROM audio_features af JOIN tracks t ON af.track_id = t.track_id ORDER BY workout_score DESC LIMIT 10'),
       connection.query<any>('SELECT t.song_name, t.artist_name, t.album_image, t.duration_ms, ((1 - af.speechiness) * 0.6 + (1 - af.energy) * 0.4) as focus_score FROM audio_features af JOIN tracks t ON af.track_id = t.track_id ORDER BY focus_score DESC LIMIT 10'),
-      connection.query<any>('SELECT AVG((energy + danceability) / 2) as mood_score, AVG((energy * 0.7) + ((bpm / 200) * 0.3)) as workout_score, AVG(((1 - speechiness) * 0.6 + (1 - energy) * 0.4)) as productivity_score FROM audio_features'),
+      connection.query<any>('SELECT AVG((af.energy + af.danceability) / 2) as mood_score, AVG((af.energy * 0.7) + ((af.bpm / 200) * 0.3)) as workout_score, AVG(((1 - af.speechiness) * 0.6 + (1 - af.energy) * 0.4)) as productivity_score FROM (SELECT DISTINCT track_id FROM recently_played) rp JOIN audio_features af ON rp.track_id = af.track_id'),
       
       connection.query<any>('SELECT t.song_name, t.artist_name, t.album_image, af.danceability as x, af.energy as y, af.bpm as z FROM audio_features af JOIN tracks t ON af.track_id = t.track_id')
     ]);
