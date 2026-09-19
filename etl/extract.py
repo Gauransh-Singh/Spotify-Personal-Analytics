@@ -327,7 +327,7 @@ if not tracks_df.empty:
 if not recently_played_df.empty:
 
     recently_played_df['played_at'] = pd.to_datetime(
-        recently_played_df['played_at']
+        recently_played_df['played_at'], format='ISO8601', utc=True
     )
 
 # =========================
