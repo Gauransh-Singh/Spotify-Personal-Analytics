@@ -227,6 +227,7 @@ for time_range in [
 
     for item in results['items']:
 
+        track = item
         track_id = item['id']
 
         tracks_data.append({

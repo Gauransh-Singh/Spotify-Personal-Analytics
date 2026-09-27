@@ -16,12 +16,12 @@ export default function TopMusicPage() {
   const filteredTracks = data.profile.topTracks.filter((t: any) => t.time_range === timeRange);
   
   // Hero Elements (Rank #1)
-  const heroArtist = filteredArtists[0];
-  const heroTrack = filteredTracks[0];
+  const heroArtist = filteredArtists.find((a: any) => a.rank_position === 1) || filteredArtists[0];
+  const heroTrack = filteredTracks.find((t: any) => t.rank_position === 1) || filteredTracks[0];
 
   // Remaining Elements (Ranks #2 - #10)
-  const otherArtists = filteredArtists.slice(1, 10);
-  const otherTracks = filteredTracks.slice(1, 10);
+  const otherArtists = filteredArtists.filter((a: any) => a.artist_id !== heroArtist?.artist_id).slice(0, 9);
+  const otherTracks = filteredTracks.filter((t: any) => t.track_id !== heroTrack?.track_id).slice(0, 9);
 
   // Duration Analysis
   const avgDurationMs = filteredTracks.length ? filteredTracks.reduce((acc:any, t:any) => acc + (t.duration_ms || 0), 0) / filteredTracks.length : 0;
@@ -30,9 +30,8 @@ export default function TopMusicPage() {
 
   const formatMs = (ms: number) => {
     if (!ms) return '0:00';
-    const minutes = Math.floor(ms / 60000);
-    const seconds = ((ms % 60000) / 1000).toFixed(0);
-    return `${minutes}:${Number(seconds) < 10 ? '0' : ''}${seconds}`;
+    const totalSeconds = Math.floor(ms / 1000);
+    return `${Math.floor(totalSeconds / 60)}:${(totalSeconds % 60).toString().padStart(2, '0')}`;
   };
 
   return (
@@ -102,7 +101,7 @@ export default function TopMusicPage() {
                 <img src={heroTrack.album_image} alt={heroTrack.song_name} style={{ width: 140, height: 140, borderRadius: '12px', boxShadow: '0 10px 30px rgba(0,0,0,0.6)', flexShrink: 0 }} />
                 <div style={{ minWidth: 0 }}>
                   <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'var(--accent)', color: '#000', padding: '0.4rem 0.8rem', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>
-                    <Disc3 size={14} /> #1 Track
+                    <Disc3 size={14} /> #{heroTrack.rank_position || 1} Track
                   </div>
                   <h2 style={{ fontSize: '2.5rem', fontWeight: 700, margin: 0, color: '#fff', lineHeight: 1.2, marginBottom: '0.25rem', overflowWrap: 'break-word', wordBreak: 'break-word', hyphens: 'auto' }}>{heroTrack.song_name}</h2>
                   <div style={{ fontSize: '1.2rem', color: 'rgba(255,255,255,0.7)', display: 'flex', alignItems: 'center', gap: '0.75rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
@@ -159,7 +158,7 @@ export default function TopMusicPage() {
               <h3 style={{ fontSize: '1.5rem', marginBottom: '2rem', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '1rem' }}>Trending Tracks</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 {otherTracks.map((track: any, idx: number) => (
-                  <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.5rem', borderRadius: '8px', transition: 'background 0.2s' }} className="hover-bg">
+                  <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.5rem', borderRadius: '8px', transition: 'background 0.2s' }} className="track-list-item">
                     <span style={{ width: '20px', textAlign: 'right', color: 'var(--text-tertiary)', fontSize: '0.9rem', fontWeight: 600 }}>{track.rank_position}</span>
                     <img src={track.album_image} alt={track.song_name} style={{ width: 48, height: 48, borderRadius: '4px' }} />
                     <div style={{ flex: 1, overflow: 'hidden' }}>
